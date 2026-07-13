@@ -1,15 +1,18 @@
 class AppRoutes {
   AppRoutes._();
 
-  static const splash = '/';
-  static const login = '/login';
-  static const register = '/register';
+  // Initial Routes
+  static const String splash = '/';
+  static const String login = '/login';
+  static const String register = '/register';
 
-  static const dashboard = '/dashboard';
-  static const transactions = '/transactions';
-  static const analytics = '/analytics';
-  static const accounts = '/accounts';
-  static const settings = '/settings';
+  // Main App
+  static const String home = '/home';
 
-  static const home = '/home';
+  // Individual Pages
+  static const String dashboard = '/dashboard';
+  static const String transactions = '/transactions';
+  static const String analytics = '/analytics';
+  static const String accounts = '/accounts';
+  static const String settings = '/settings';
 }
