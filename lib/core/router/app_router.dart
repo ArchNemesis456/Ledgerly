@@ -1,14 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+/*import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/accounts/screens/accounts_screen.dart';
-import '../../features/analytics/screens/analytics_screen.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
-import '../../features/dashboard/screens/dashboard_screen.dart';
-import '../../features/settings/screens/settings_screen.dart';
+import '../../features/home/screens/home_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
-import '../../features/transactions/screens/transactions_screen.dart';
 import 'routes.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -33,30 +29,56 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       GoRoute(
-        path: AppRoutes.dashboard,
-        builder: (context, state) => const DashboardScreen(),
+        path: AppRoutes.home,
+        builder: (context, state) => const HomeScreen(),
       ),
-
-      GoRoute(
-        path: AppRoutes.transactions,
-        builder: (context, state) => const TransactionsScreen(),
-      ),
-
-      GoRoute(
-        path: AppRoutes.analytics,
-        builder: (context, state) => const AnalyticsScreen(),
-      ),
-
-      GoRoute(
-        path: AppRoutes.accounts,
-        builder: (context, state) => const AccountsScreen(),
-      ),
-
-      GoRoute(
-        path: AppRoutes.settings,
-        builder: (context, state) => const SettingsScreen(),
-      ),
-
     ],
   );
+});*/
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../features/auth/screens/login_screen.dart';
+import '../../features/auth/screens/register_screen.dart';
+import '../../features/home/screens/home_screen.dart';
+import '../../features/splash/screens/splash_screen.dart';
+import 'routes.dart';
+
+final appRouterProvider = Provider<GoRouter>((ref) {
+  final router = GoRouter(
+    initialLocation: AppRoutes.splash,
+
+    routes: [
+      GoRoute(
+        path: AppRoutes.splash,
+        builder: (_, _) => const SplashScreen(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.login,
+        builder: (_, _) => const LoginScreen(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.register,
+        builder: (_, _) => const RegisterScreen(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (_, _) => const HomeScreen(),
+      ),
+    ],
+  );
+
+  debugPrint("Registered routes:");
+  for (final route in router.configuration.routes) {
+    if (route is GoRoute) {
+      debugPrint(route.path);
+    }
+  }
+
+  return router;
 });
