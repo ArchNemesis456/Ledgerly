@@ -57,22 +57,22 @@ class DefaultFirebaseOptions {
     projectId: 'ledgerly-5b939',
     storageBucket: 'ledgerly-5b939.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBJuiPGrGQA4-Ld-Y8UFzZEhAqrTuP4toY',
     appId: '1:1066497327418:ios:4d1e7ea614a2136ec79003',
     messagingSenderId: '1066497327418',
     projectId: 'ledgerly-5b939',
     storageBucket: 'ledgerly-5b939.firebasestorage.app',
+    iosClientId: '1066497327418-37ujb1m6gkl29j402246o9mcek0fk4c4.apps.googleusercontent.com',
     iosBundleId: 'com.example.ledgerly',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBJuiPGrGQA4-Ld-Y8UFzZEhAqrTuP4toY',
     appId: '1:1066497327418:ios:4d1e7ea614a2136ec79003',
     messagingSenderId: '1066497327418',
     projectId: 'ledgerly-5b939',
     storageBucket: 'ledgerly-5b939.firebasestorage.app',
+    iosClientId: '1066497327418-37ujb1m6gkl29j402246o9mcek0fk4c4.apps.googleusercontent.com',
     iosBundleId: 'com.example.ledgerly',
   );
 

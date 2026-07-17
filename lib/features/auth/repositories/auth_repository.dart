@@ -5,16 +5,18 @@ abstract class AuthRepository {
 
   Future<UserModel?> getCurrentUser();
 
-  Future<UserModel> signIn({
-    required String email,
-    required String password,
-  });
-
   Future<UserModel> signUp({
     required String name,
     required String email,
     required String password,
   });
+
+  Future<UserModel> signIn({
+    required String email,
+    required String password,
+  });
+
+  Future<UserModel> signInWithGoogle();
 
   Future<void> signOut();
 }
