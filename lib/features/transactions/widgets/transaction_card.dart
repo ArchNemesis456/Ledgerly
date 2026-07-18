@@ -2,38 +2,56 @@ import 'package:flutter/material.dart';
 
 class TransactionCard extends StatelessWidget {
   final String title;
-  final String category;
   final double amount;
   final bool isIncome;
+  final DateTime date;
+  final VoidCallback? onTap;
 
   const TransactionCard({
     super.key,
     required this.title,
-    required this.category,
     required this.amount,
     required this.isIncome,
+    required this.date,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final color = isIncome ? Colors.green : Colors.red;
+
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 6,
+      ),
+      elevation: 2,
       child: ListTile(
+        onTap: onTap,
         leading: CircleAvatar(
-          backgroundColor:
-              isIncome ? Colors.green.shade100 : Colors.red.shade100,
+          backgroundColor: color.withValues(alpha: 0.12),
           child: Icon(
-            isIncome ? Icons.arrow_downward : Icons.arrow_upward,
-            color: isIncome ? Colors.green : Colors.red,
+            isIncome
+                ? Icons.arrow_downward
+                : Icons.arrow_upward,
+            color: color,
           ),
         ),
-        title: Text(title),
-        subtitle: Text(category),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(
+          "${date.day}/${date.month}/${date.year}",
+        ),
         trailing: Text(
           "${isIncome ? "+" : "-"}₹${amount.toStringAsFixed(2)}",
           style: TextStyle(
-            color: isIncome ? Colors.green : Colors.red,
+            color: color,
             fontWeight: FontWeight.bold,
+            fontSize: 16,
           ),
         ),
       ),

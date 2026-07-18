@@ -7,16 +7,24 @@ part 'transaction_dao.g.dart';
 @DriftAccessor(tables: [Transactions])
 class TransactionDao extends DatabaseAccessor<AppDatabase>
     with _$TransactionDaoMixin {
-  TransactionDao(AppDatabase db) : super(db);
+  TransactionDao(super.db);
 
   // Watch all transactions
   Stream<List<Transaction>> watchAllTransactions() {
-    return select(transactions).watch();
+    return (select(transactions)
+          ..orderBy([
+            (t) => OrderingTerm.desc(t.date),
+          ]))
+        .watch();
   }
 
   // Get all transactions once
   Future<List<Transaction>> getAllTransactions() {
-    return select(transactions).get();
+    return (select(transactions)
+          ..orderBy([
+            (t) => OrderingTerm.desc(t.date),
+          ]))
+        .get();
   }
 
   // Insert a transaction

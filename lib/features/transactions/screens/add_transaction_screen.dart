@@ -6,7 +6,12 @@ import '../../../database/database.dart';
 import '../providers/transaction_provider.dart';
 
 class AddTransactionScreen extends ConsumerStatefulWidget {
-  const AddTransactionScreen({super.key});
+  final Transaction? transaction;
+
+  const AddTransactionScreen({
+    super.key,
+    this.transaction,
+  });
 
   @override
   ConsumerState<AddTransactionScreen> createState() =>
@@ -37,6 +42,21 @@ class _AddTransactionScreenState
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    final transaction = widget.transaction;
+
+    if (transaction != null) {
+      _titleController.text = transaction.title;
+      _amountController.text = transaction.amount.toString();
+
+      _isIncome = transaction.isIncome;
+
+      _selectedDate = transaction.date;
+    }
+  }
+  @override
   void dispose() {
     _titleController.dispose();
     _amountController.dispose();
@@ -59,11 +79,12 @@ class _AddTransactionScreenState
   }
 
   Future<void> _saveTransaction() async {
-    if (!_formKey.currentState!.validate()) return;
+  if (!_formKey.currentState!.validate()) return;
 
-    try {
-      final repository = ref.read(transactionRepositoryProvider);
+  try {
+    final repository = ref.read(transactionRepositoryProvider);
 
+    if (widget.transaction == null) {
       await repository.addTransaction(
         TransactionsCompanion.insert(
           title: _titleController.text.trim(),
@@ -75,32 +96,50 @@ class _AddTransactionScreenState
           notes: const drift.Value.absent(),
         ),
       );
-
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Transaction Saved Successfully 🎉"),
-        ),
-      );
-
-      Navigator.pop(context);
-    } catch (e) {
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
+    } else {
+      await repository.updateTransaction(
+        widget.transaction!.copyWith(
+          title: _titleController.text.trim(),
+          amount: double.parse(_amountController.text.trim()),
+          isIncome: _isIncome,
+          date: _selectedDate,
         ),
       );
     }
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          widget.transaction == null
+              ? "Transaction Added Successfully 🎉"
+              : "Transaction Updated Successfully 🎉",
+        ),
+      ),
+    );
+
+    Navigator.pop(context);
+  } catch (e) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(e.toString()),
+      ),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Transaction"),
+        title: Text(
+        widget.transaction == null
+            ? "Add Transaction"
+            : "Edit Transaction",
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -206,7 +245,11 @@ class _AddTransactionScreenState
                 height: 55,
                 child: FilledButton(
                   onPressed: _saveTransaction,
-                  child: const Text("Save Transaction"),
+                  child: Text(
+                  widget.transaction == null
+                      ? "Save Transaction"
+                      : "Update Transaction",
+                  ),
                 ),
               ),
             ],
