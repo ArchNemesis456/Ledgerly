@@ -18,18 +18,13 @@ class OnboardingBottomBar extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
       child: Row(
         children: [
-          TextButton(
-            onPressed: onSkip,
-            child: const Text('Skip'),
-          ),
+          TextButton(onPressed: onSkip, child: const Text('Skip')),
 
           const Spacer(),
 
           FilledButton(
             onPressed: onNext,
-            child: Text(
-              isLastPage ? 'Get Started' : 'Next',
-            ),
+            child: Text(isLastPage ? 'Get Started' : 'Next'),
           ),
         ],
       ),

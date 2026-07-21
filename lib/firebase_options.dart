@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1066497327418',
     projectId: 'ledgerly-5b939',
     storageBucket: 'ledgerly-5b939.firebasestorage.app',
-    iosClientId: '1066497327418-37ujb1m6gkl29j402246o9mcek0fk4c4.apps.googleusercontent.com',
+    iosClientId:
+        '1066497327418-37ujb1m6gkl29j402246o9mcek0fk4c4.apps.googleusercontent.com',
     iosBundleId: 'com.example.ledgerly',
   );
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,7 +73,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1066497327418',
     projectId: 'ledgerly-5b939',
     storageBucket: 'ledgerly-5b939.firebasestorage.app',
-    iosClientId: '1066497327418-37ujb1m6gkl29j402246o9mcek0fk4c4.apps.googleusercontent.com',
+    iosClientId:
+        '1066497327418-37ujb1m6gkl29j402246o9mcek0fk4c4.apps.googleusercontent.com',
     iosBundleId: 'com.example.ledgerly',
   );
 

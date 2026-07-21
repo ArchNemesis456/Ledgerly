@@ -7,12 +7,10 @@ class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  ConsumerState<OnboardingScreen> createState() =>
-      _OnboardingScreenState();
+  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState
-    extends ConsumerState<OnboardingScreen> {
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final PageController _pageController = PageController();
 
   int _currentPage = 0;
@@ -25,7 +23,6 @@ class _OnboardingScreenState
       body: SafeArea(
         child: Column(
           children: [
-
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -43,20 +40,14 @@ class _OnboardingScreenState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
-                        const Icon(
-                          Icons.account_balance_wallet,
-                          size: 140,
-                        ),
+                        const Icon(Icons.account_balance_wallet, size: 140),
 
                         const SizedBox(height: 48),
 
                         Text(
                           page.title,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
 
                         const SizedBox(height: 16),
@@ -64,9 +55,7 @@ class _OnboardingScreenState
                         Text(
                           page.description,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
                     ),
@@ -81,8 +70,7 @@ class _OnboardingScreenState
                 pages.length,
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
                   width: _currentPage == index ? 24 : 8,
                   height: 8,
                   decoration: BoxDecoration(
@@ -107,16 +95,13 @@ class _OnboardingScreenState
                       // TODO: Navigate to Login
                     } else {
                       _pageController.nextPage(
-                        duration:
-                            const Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                       );
                     }
                   },
                   child: Text(
-                    _currentPage == pages.length - 1
-                        ? 'Get Started'
-                        : 'Next',
+                    _currentPage == pages.length - 1 ? 'Get Started' : 'Next',
                   ),
                 ),
               ),

@@ -18,19 +18,12 @@ class TransactionsScreen extends ConsumerWidget {
         centerTitle: false,
         title: const Text(
           "Transactions",
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
       body: transactions.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        error: (error, stackTrace) => Center(
-          child: Text(error.toString()),
-        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text(error.toString())),
         data: (transactionList) {
           if (transactionList.isEmpty) {
             return Center(
@@ -67,15 +60,12 @@ class TransactionsScreen extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) =>
-                                const AddTransactionScreen(),
+                            builder: (_) => const AddTransactionScreen(),
                           ),
                         );
                       },
                       icon: const Icon(Icons.add),
-                      label: const Text(
-                        "Add Your First Transaction",
-                      ),
+                      label: const Text("Add Your First Transaction"),
                     ),
                   ],
                 ),
@@ -85,67 +75,45 @@ class TransactionsScreen extends ConsumerWidget {
 
           return RefreshIndicator(
             onRefresh: () async {
-              await ref
-                  .read(transactionRepositoryProvider)
-                  .getTransactions();
+              await ref.read(transactionRepositoryProvider).getTransactions();
 
-              await Future.delayed(
-                const Duration(milliseconds: 500),
-              );
+              await Future.delayed(const Duration(milliseconds: 500));
             },
             child: ListView.builder(
-              physics:
-                  const AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               itemCount: transactionList.length,
               itemBuilder: (context, index) {
                 final transaction = transactionList[index];
 
                 return Dismissible(
                   key: ValueKey(transaction.id),
-                  direction:
-                      DismissDirection.endToStart,
+                  direction: DismissDirection.endToStart,
                   background: Container(
                     alignment: Alignment.centerRight,
-                    padding:
-                        const EdgeInsets.only(right: 20),
+                    padding: const EdgeInsets.only(right: 20),
                     color: Colors.red,
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
                   confirmDismiss: (_) async {
                     return await showDialog<bool>(
                           context: context,
                           builder: (_) => AlertDialog(
-                            title: const Text(
-                              "Delete Transaction",
-                            ),
+                            title: const Text("Delete Transaction"),
                             content: const Text(
                               "Are you sure you want to delete this transaction?",
                             ),
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pop(
-                                    context,
-                                    false,
-                                  );
+                                  Navigator.pop(context, false);
                                 },
-                                child: const Text(
-                                  "Cancel",
-                                ),
+                                child: const Text("Cancel"),
                               ),
                               FilledButton(
                                 onPressed: () {
-                                  Navigator.pop(
-                                    context,
-                                    true,
-                                  );
+                                  Navigator.pop(context, true);
                                 },
-                                child: const Text(
-                                  "Delete",
-                                ),
+                                child: const Text("Delete"),
                               ),
                             ],
                           ),
@@ -153,23 +121,15 @@ class TransactionsScreen extends ConsumerWidget {
                         false;
                   },
                   onDismissed: (_) async {
-                    final repository = ref.read(
-                      transactionRepositoryProvider,
-                    );
+                    final repository = ref.read(transactionRepositoryProvider);
 
-                    await repository.deleteTransaction(
-                      transaction,
-                    );
+                    await repository.deleteTransaction(transaction);
 
                     if (context.mounted) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          behavior:
-                              SnackBarBehavior.floating,
-                          content: Text(
-                            "Transaction deleted successfully",
-                          ),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text("Transaction deleted successfully"),
                         ),
                       );
                     }
@@ -184,9 +144,7 @@ class TransactionsScreen extends ConsumerWidget {
                         context,
                         MaterialPageRoute(
                           builder: (_) =>
-                              AddTransactionScreen(
-                            transaction: transaction,
-                          ),
+                              AddTransactionScreen(transaction: transaction),
                         ),
                       );
                     },
@@ -197,15 +155,11 @@ class TransactionsScreen extends ConsumerWidget {
           );
         },
       ),
-      floatingActionButton:
-          FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) =>
-                  const AddTransactionScreen(),
-            ),
+            MaterialPageRoute(builder: (_) => const AddTransactionScreen()),
           );
         },
         icon: const Icon(Icons.add),

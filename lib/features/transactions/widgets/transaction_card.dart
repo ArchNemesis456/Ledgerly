@@ -21,31 +21,19 @@ class TransactionCard extends StatelessWidget {
     final color = isIncome ? Colors.green : Colors.red;
 
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 6,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       elevation: 2,
       child: ListTile(
         onTap: onTap,
         leading: CircleAvatar(
           backgroundColor: color.withValues(alpha: 0.12),
           child: Icon(
-            isIncome
-                ? Icons.arrow_downward
-                : Icons.arrow_upward,
+            isIncome ? Icons.arrow_downward : Icons.arrow_upward,
             color: color,
           ),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(
-          "${date.day}/${date.month}/${date.year}",
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text("${date.day}/${date.month}/${date.year}"),
         trailing: Text(
           "${isIncome ? "+" : "-"}₹${amount.toStringAsFixed(2)}",
           style: TextStyle(

@@ -11,18 +11,11 @@ class EmptyTransactions extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Icon(
-              Icons.receipt_long,
-              size: 90,
-              color: Colors.grey,
-            ),
+            Icon(Icons.receipt_long, size: 90, color: Colors.grey),
             SizedBox(height: 20),
             Text(
               "No Transactions Yet",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Text(

@@ -5,11 +5,9 @@ import '../models/user_model.dart';
 import '../repositories/auth_repository.dart';
 
 class FirebaseAuthService implements AuthRepository {
-  FirebaseAuthService({
-    FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+  FirebaseAuthService({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+      _googleSignIn = googleSignIn ?? GoogleSignIn();
 
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
@@ -41,8 +39,7 @@ class FirebaseAuthService implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    final credential =
-        await _firebaseAuth.createUserWithEmailAndPassword(
+    final credential = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -58,8 +55,7 @@ class FirebaseAuthService implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    final credential =
-        await _firebaseAuth.signInWithEmailAndPassword(
+    final credential = await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -69,8 +65,7 @@ class FirebaseAuthService implements AuthRepository {
 
   @override
   Future<UserModel> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser =
-        await _googleSignIn.signIn();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
     if (googleUser == null) {
       throw Exception('Google Sign-In cancelled.');
@@ -84,17 +79,13 @@ class FirebaseAuthService implements AuthRepository {
       idToken: googleAuth.idToken,
     );
 
-    final userCredential =
-        await _firebaseAuth.signInWithCredential(credential);
+    final userCredential = await _firebaseAuth.signInWithCredential(credential);
 
     return _mapUser(userCredential.user)!;
   }
 
   @override
   Future<void> signOut() async {
-    await Future.wait([
-      _firebaseAuth.signOut(),
-      _googleSignIn.signOut(),
-    ]);
+    await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
   }
 }

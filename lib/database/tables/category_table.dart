@@ -5,12 +5,9 @@ class Categories extends Table {
 
   TextColumn get name => text().withLength(min: 1, max: 50)();
 
-  TextColumn get icon =>
-      text().withDefault(const Constant('category'))();
+  TextColumn get icon => text().withDefault(const Constant('category'))();
 
-  BoolColumn get isIncome =>
-      boolean().withDefault(const Constant(false))();
+  BoolColumn get isIncome => boolean().withDefault(const Constant(false))();
 
-  DateTimeColumn get createdAt =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

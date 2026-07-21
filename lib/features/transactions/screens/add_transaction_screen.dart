@@ -8,18 +8,14 @@ import '../providers/transaction_provider.dart';
 class AddTransactionScreen extends ConsumerStatefulWidget {
   final Transaction? transaction;
 
-  const AddTransactionScreen({
-    super.key,
-    this.transaction,
-  });
+  const AddTransactionScreen({super.key, this.transaction});
 
   @override
   ConsumerState<AddTransactionScreen> createState() =>
       _AddTransactionScreenState();
 }
 
-class _AddTransactionScreenState
-    extends ConsumerState<AddTransactionScreen> {
+class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _titleController = TextEditingController();
@@ -56,6 +52,7 @@ class _AddTransactionScreenState
       _selectedDate = transaction.date;
     }
   }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -79,66 +76,62 @@ class _AddTransactionScreenState
   }
 
   Future<void> _saveTransaction() async {
-  if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
-  try {
-    final repository = ref.read(transactionRepositoryProvider);
+    try {
+      final repository = ref.read(transactionRepositoryProvider);
 
-    if (widget.transaction == null) {
-      await repository.addTransaction(
-        TransactionsCompanion.insert(
-          title: _titleController.text.trim(),
-          amount: double.parse(_amountController.text.trim()),
-          accountId: 1,
-          categoryId: 1,
-          isIncome: drift.Value(_isIncome),
-          date: drift.Value(_selectedDate),
-          notes: const drift.Value.absent(),
+      if (widget.transaction == null) {
+        await repository.addTransaction(
+          TransactionsCompanion.insert(
+            title: _titleController.text.trim(),
+            amount: double.parse(_amountController.text.trim()),
+            accountId: 1,
+            categoryId: 1,
+            isIncome: drift.Value(_isIncome),
+            date: drift.Value(_selectedDate),
+            notes: const drift.Value.absent(),
+          ),
+        );
+      } else {
+        await repository.updateTransaction(
+          widget.transaction!.copyWith(
+            title: _titleController.text.trim(),
+            amount: double.parse(_amountController.text.trim()),
+            isIncome: _isIncome,
+            date: _selectedDate,
+          ),
+        );
+      }
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            widget.transaction == null
+                ? "Transaction Added Successfully 🎉"
+                : "Transaction Updated Successfully 🎉",
+          ),
         ),
       );
-    } else {
-      await repository.updateTransaction(
-        widget.transaction!.copyWith(
-          title: _titleController.text.trim(),
-          amount: double.parse(_amountController.text.trim()),
-          isIncome: _isIncome,
-          date: _selectedDate,
-        ),
-      );
+
+      Navigator.pop(context);
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
-
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          widget.transaction == null
-              ? "Transaction Added Successfully 🎉"
-              : "Transaction Updated Successfully 🎉",
-        ),
-      ),
-    );
-
-    Navigator.pop(context);
-  } catch (e) {
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(e.toString()),
-      ),
-    );
   }
-}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-        widget.transaction == null
-            ? "Add Transaction"
-            : "Edit Transaction",
+          widget.transaction == null ? "Add Transaction" : "Edit Transaction",
         ),
       ),
       body: SingleChildScrollView(
@@ -148,9 +141,7 @@ class _AddTransactionScreenState
           child: Column(
             children: [
               SwitchListTile(
-                title: Text(
-                  _isIncome ? "Income" : "Expense",
-                ),
+                title: Text(_isIncome ? "Income" : "Expense"),
                 value: _isIncome,
                 onChanged: (value) {
                   setState(() {
@@ -246,9 +237,9 @@ class _AddTransactionScreenState
                 child: FilledButton(
                   onPressed: _saveTransaction,
                   child: Text(
-                  widget.transaction == null
-                      ? "Save Transaction"
-                      : "Update Transaction",
+                    widget.transaction == null
+                        ? "Save Transaction"
+                        : "Update Transaction",
                   ),
                 ),
               ),

@@ -7,12 +7,9 @@ class Accounts extends Table {
 
   TextColumn get type => text().withLength(min: 1, max: 30)();
 
-  RealColumn get balance =>
-      real().withDefault(const Constant(0.0))();
+  RealColumn get balance => real().withDefault(const Constant(0.0))();
 
-  BoolColumn get isDefault =>
-      boolean().withDefault(const Constant(false))();
+  BoolColumn get isDefault => boolean().withDefault(const Constant(false))();
 
-  DateTimeColumn get createdAt =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

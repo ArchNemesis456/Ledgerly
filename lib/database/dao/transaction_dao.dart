@@ -11,47 +11,35 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
 
   // Watch all transactions
   Stream<List<Transaction>> watchAllTransactions() {
-    return (select(transactions)
-          ..orderBy([
-            (t) => OrderingTerm.desc(t.date),
-          ]))
-        .watch();
+    return (select(
+      transactions,
+    )..orderBy([(t) => OrderingTerm.desc(t.date)])).watch();
   }
 
   // Get all transactions once
   Future<List<Transaction>> getAllTransactions() {
-    return (select(transactions)
-          ..orderBy([
-            (t) => OrderingTerm.desc(t.date),
-          ]))
-        .get();
+    return (select(
+      transactions,
+    )..orderBy([(t) => OrderingTerm.desc(t.date)])).get();
   }
 
   // Insert a transaction
-  Future<int> insertTransaction(
-    TransactionsCompanion transaction,
-  ) {
+  Future<int> insertTransaction(TransactionsCompanion transaction) {
     return into(transactions).insert(transaction);
   }
 
   // Update a transaction
-  Future<bool> updateTransaction(
-    Transaction transaction,
-  ) {
+  Future<bool> updateTransaction(Transaction transaction) {
     return update(transactions).replace(transaction);
   }
 
   // Delete a transaction
-  Future<int> deleteTransaction(
-    Transaction transaction,
-  ) {
+  Future<int> deleteTransaction(Transaction transaction) {
     return delete(transactions).delete(transaction);
   }
 
   // Delete by ID
   Future<int> deleteTransactionById(int id) {
-    return (delete(transactions)
-          ..where((tbl) => tbl.id.equals(id)))
-        .go();
+    return (delete(transactions)..where((tbl) => tbl.id.equals(id))).go();
   }
 }

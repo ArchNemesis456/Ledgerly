@@ -11,10 +11,7 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<UserModel> signIn({
-    required String email,
-    required String password,
-  });
+  Future<UserModel> signIn({required String email, required String password});
 
   Future<UserModel> signInWithGoogle();
 

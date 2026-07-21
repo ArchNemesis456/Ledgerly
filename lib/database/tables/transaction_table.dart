@@ -7,15 +7,13 @@ class Transactions extends Table {
 
   RealColumn get amount => real()();
 
-  BoolColumn get isIncome =>
-      boolean().withDefault(const Constant(false))();
+  BoolColumn get isIncome => boolean().withDefault(const Constant(false))();
 
   IntColumn get accountId => integer()();
 
   IntColumn get categoryId => integer()();
 
-  DateTimeColumn get date =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get date => dateTime().withDefault(currentDateAndTime)();
 
   TextColumn get notes => text().nullable()();
 }
