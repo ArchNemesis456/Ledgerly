@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/bill_provider.dart';
 import '../widgets/bill_card.dart';
 import 'add_bill_screen.dart';
+import 'bill_details_screen.dart';
 
 class BillsScreen extends ConsumerWidget {
   const BillsScreen({super.key});
@@ -15,18 +16,12 @@ class BillsScreen extends ConsumerWidget {
     final overdue = ref.watch(overdueBillsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bills & Reminders'),
-      ),
+      appBar: AppBar(title: const Text('Bills & Reminders')),
 
       body: bills.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
 
-        error: (error, _) => Center(
-          child: Text(error.toString()),
-        ),
+        error: (error, _) => Center(child: Text(error.toString())),
 
         data: (_) {
           return ListView(
@@ -45,15 +40,16 @@ class BillsScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(bottom: 12),
                     child: BillCard(
                       bill: bill,
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BillDetailsScreen(bill: bill),
+                        ),
+                      ),
                       onPaid: () async {
                         await ref
                             .read(billRepositoryProvider)
-                            .updateBill(
-                              bill.copyWith(
-                                paid: true,
-                              ),
-                            );
+                            .updateBill(bill.copyWith(paid: true));
                       },
                     ),
                   ),
@@ -73,9 +69,7 @@ class BillsScreen extends ConsumerWidget {
                 const Card(
                   child: Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text(
-                      "No upcoming bills.",
-                    ),
+                    child: Text("No upcoming bills."),
                   ),
                 ),
 
@@ -84,15 +78,16 @@ class BillsScreen extends ConsumerWidget {
                   padding: const EdgeInsets.only(bottom: 12),
                   child: BillCard(
                     bill: bill,
-                    onTap: () {},
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BillDetailsScreen(bill: bill),
+                      ),
+                    ),
                     onPaid: () async {
                       await ref
                           .read(billRepositoryProvider)
-                          .updateBill(
-                            bill.copyWith(
-                              paid: true,
-                            ),
-                          );
+                          .updateBill(bill.copyWith(paid: true));
                     },
                   ),
                 ),
@@ -106,9 +101,7 @@ class BillsScreen extends ConsumerWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) => const AddBillScreen(),
-            ),
+            MaterialPageRoute(builder: (_) => const AddBillScreen()),
           );
         },
         icon: const Icon(Icons.add),

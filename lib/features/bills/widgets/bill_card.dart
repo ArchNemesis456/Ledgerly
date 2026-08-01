@@ -19,27 +19,30 @@ class BillCard extends StatelessWidget {
         : overdue
         ? Colors.red
         : Colors.orange;
-    return Card(
-      child: ListTile(
-        onTap: onTap,
-        leading: CircleAvatar(
-          backgroundColor: color.withValues(alpha: .15),
-          child: Icon(
-            bill.paid ? Icons.check : Icons.receipt_long,
-            color: color,
+    return Hero(
+      tag: 'bill-${bill.id}',
+      child: Card(
+        child: ListTile(
+          onTap: onTap,
+          leading: CircleAvatar(
+            backgroundColor: color.withValues(alpha: .15),
+            child: Icon(
+              bill.paid ? Icons.check : Icons.receipt_long,
+              color: color,
+            ),
           ),
+          title: Text(bill.title),
+          subtitle: Text(
+            'Due ${MaterialLocalizations.of(context).formatMediumDate(bill.dueDate)} · ₹${bill.amount.toStringAsFixed(0)}',
+          ),
+          trailing: bill.paid
+              ? const Chip(label: Text('Paid'))
+              : IconButton(
+                  onPressed: onPaid,
+                  icon: const Icon(Icons.check_circle_outline),
+                  tooltip: 'Mark paid',
+                ),
         ),
-        title: Text(bill.title),
-        subtitle: Text(
-          'Due ${MaterialLocalizations.of(context).formatMediumDate(bill.dueDate)} · ₹${bill.amount.toStringAsFixed(0)}',
-        ),
-        trailing: bill.paid
-            ? const Chip(label: Text('Paid'))
-            : IconButton(
-                onPressed: onPaid,
-                icon: const Icon(Icons.check_circle_outline),
-                tooltip: 'Mark paid',
-              ),
       ),
     );
   }
