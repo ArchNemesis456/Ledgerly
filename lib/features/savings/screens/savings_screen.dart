@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/savings_goal_provider.dart';
 import '../widgets/savings_goal_card.dart';
+import 'add_savings_goal_screen.dart';
+import 'savings_goal_details_screen.dart';
 
 class SavingsScreen extends ConsumerWidget {
   const SavingsScreen({super.key});
@@ -21,11 +23,39 @@ class SavingsScreen extends ConsumerWidget {
                     .map(
                       (goal) => Padding(
                         padding: const EdgeInsets.only(bottom: 12),
-                        child: SavingsGoalCard(goal: goal, onTap: () {}),
+                        child: SavingsGoalCard(
+                          goal: goal,
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => SavingsGoalDetailsScreen(
+                                  goal: goal,
+                                ),
+                              ),
+                            );
+
+                            ref.invalidate(savingsGoalsProvider);
+                          },
+                        ),
                       ),
                     )
                     .toList(),
               ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const AddSavingsGoalScreen(),
+            ),
+          );
+
+          ref.invalidate(savingsGoalsProvider);
+        },
+        icon: const Icon(Icons.add),
+        label: const Text("Goal"),
       ),
     );
   }

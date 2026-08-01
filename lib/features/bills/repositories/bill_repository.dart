@@ -2,10 +2,38 @@ import '../../../database/dao/bill_dao.dart';
 import '../../../database/database.dart';
 
 class BillRepository {
-  BillRepository(AppDatabase database) : _dao = BillDao(database);
   final BillDao _dao;
-  Stream<List<Bill>> watchBills() => _dao.watchBills();
-  Future<int> add(BillsCompanion bill) => _dao.insert(bill);
-  Future<bool> update(Bill bill) => _dao.update(bill);
-  Future<int> delete(Bill bill) => _dao.delete(bill);
+
+  BillRepository(AppDatabase database)
+      : _dao = BillDao(database);
+
+  Future<List<Bill>> getBills() {
+    return _dao.getBills();
+  }
+
+  Stream<List<Bill>> watchBills() {
+    return _dao.watchBills();
+  }
+
+  Future<int> addBill(
+    BillsCompanion bill,
+  ) {
+    return _dao.insertBill(bill);
+  }
+
+  Future<bool> updateBill(
+    Bill bill,
+  ) {
+    return _dao.updateBill(bill);
+  }
+
+  Future<int> deleteBill(
+    Bill bill,
+  ) {
+    return _dao.deleteBill(bill);
+  }
+
+  Future<int> deleteBillById(int id) {
+    return _dao.deleteBillById(id);
+  }
 }
