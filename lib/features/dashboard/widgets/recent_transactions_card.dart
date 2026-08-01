@@ -22,14 +22,11 @@ class RecentTransactionsCard extends StatelessWidget {
           children: [
             Text(
               "Recent Transactions",
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
-            TextButton(
-              onPressed: onViewAll,
-              child: const Text("View All"),
-            ),
+            TextButton(onPressed: onViewAll, child: const Text("View All")),
           ],
         ),
         const SizedBox(height: 10),
@@ -51,13 +48,9 @@ class RecentTransactionsCard extends StatelessWidget {
             if (transactions.isEmpty) {
               return const Card(
                 child: ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(Icons.receipt_long),
-                  ),
+                  leading: CircleAvatar(child: Icon(Icons.receipt_long)),
                   title: Text("No transactions yet"),
-                  subtitle: Text(
-                    "Add a transaction to get started.",
-                  ),
+                  subtitle: Text("Add a transaction to get started."),
                 ),
               );
             }
@@ -74,9 +67,7 @@ class RecentTransactionsCard extends StatelessWidget {
                         transaction.isIncome
                             ? Icons.arrow_downward
                             : Icons.arrow_upward,
-                        color: transaction.isIncome
-                            ? Colors.green
-                            : Colors.red,
+                        color: transaction.isIncome ? Colors.green : Colors.red,
                       ),
                     ),
                     title: Text(transaction.title),
@@ -86,9 +77,7 @@ class RecentTransactionsCard extends StatelessWidget {
                     trailing: Text(
                       "${transaction.isIncome ? '+' : '-'}₹${transaction.amount.toStringAsFixed(2)}",
                       style: TextStyle(
-                        color: transaction.isIncome
-                            ? Colors.green
-                            : Colors.red,
+                        color: transaction.isIncome ? Colors.green : Colors.red,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

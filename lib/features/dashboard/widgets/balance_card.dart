@@ -4,10 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class BalanceCard extends StatelessWidget {
   final AsyncValue<double> totalBalance;
 
-  const BalanceCard({
-    super.key,
-    required this.totalBalance,
-  });
+  const BalanceCard({super.key, required this.totalBalance});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +13,7 @@ class BalanceCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF3F51B5),
-            Color(0xFF5C6BC0),
-          ],
+          colors: [Color(0xFF3F51B5), Color(0xFF5C6BC0)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -31,18 +25,18 @@ class BalanceCard extends StatelessWidget {
           children: [
             Text(
               "Total Balance",
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.white70,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(color: Colors.white70),
             ),
             const SizedBox(height: 12),
             totalBalance.when(
               data: (balance) => Text(
                 "₹${balance.toStringAsFixed(2)}",
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               loading: () => const SizedBox(
                 width: 24,
@@ -55,7 +49,7 @@ class BalanceCard extends StatelessWidget {
               error: (error, stackTrace) => const Text(
                 "Failed to load",
                 style: TextStyle(color: Colors.white),
-                ),
+              ),
             ),
           ],
         ),

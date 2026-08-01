@@ -16,4 +16,5 @@ class AppRoutes {
   static const String accounts = '/accounts';
   static const String settings = '/settings';
   static const String onboarding = '/onboarding';
+  static const budget = "/budget";
 }

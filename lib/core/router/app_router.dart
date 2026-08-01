@@ -8,6 +8,7 @@ import '../../features/home/screens/home_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 import 'routes.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
+import '../../features/budget/screens/budget_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final router = GoRouter(
@@ -38,6 +39,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.home,
         builder: (context, state) => const HomeScreen(),
       ),
+
+      GoRoute(path: AppRoutes.budget, builder: (_, _) => const BudgetScreen()),
     ],
   );
 

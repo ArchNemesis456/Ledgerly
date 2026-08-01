@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 class CategoryExpenseChart extends StatelessWidget {
   final Map<String, double> expenses;
 
-  const CategoryExpenseChart({
-    super.key,
-    required this.expenses,
-  });
+  const CategoryExpenseChart({super.key, required this.expenses});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +12,7 @@ class CategoryExpenseChart extends StatelessWidget {
       return const Card(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: Center(
-            child: Text("No expense data available"),
-          ),
+          child: Center(child: Text("No expense data available")),
         ),
       );
     }
@@ -33,18 +28,13 @@ class CategoryExpenseChart extends StatelessWidget {
       Colors.indigo,
     ];
 
-    final total = expenses.values.fold<double>(
-      0,
-      (sum, value) => sum + value,
-    );
+    final total = expenses.values.fold<double>(0, (sum, value) => sum + value);
 
     final entries = expenses.entries.toList();
 
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -101,14 +91,10 @@ class CategoryExpenseChart extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(entry.key),
-                      ),
+                      Expanded(child: Text(entry.key)),
                       Text(
                         "₹${entry.value.toStringAsFixed(2)}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

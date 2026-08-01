@@ -23,10 +23,7 @@ class MonthlySummaryCards extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.trending_up,
-                    color: Colors.green,
-                  ),
+                  const Icon(Icons.trending_up, color: Colors.green),
                   const SizedBox(height: 8),
                   const Text("Income"),
                   const SizedBox(height: 8),
@@ -39,8 +36,7 @@ class MonthlySummaryCards extends StatelessWidget {
                       ),
                     ),
                     loading: () => const CircularProgressIndicator(),
-                    error: (error, stackTrace) =>
-                        const Text("Error"),
+                    error: (error, stackTrace) => const Text("Error"),
                   ),
                 ],
               ),
@@ -54,10 +50,7 @@ class MonthlySummaryCards extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.trending_down,
-                    color: Colors.red,
-                  ),
+                  const Icon(Icons.trending_down, color: Colors.red),
                   const SizedBox(height: 8),
                   const Text("Expense"),
                   const SizedBox(height: 8),
@@ -70,8 +63,7 @@ class MonthlySummaryCards extends StatelessWidget {
                       ),
                     ),
                     loading: () => const CircularProgressIndicator(),
-                    error: (error, stackTrace) =>
-                        const Text("Error"),
+                    error: (error, stackTrace) => const Text("Error"),
                   ),
                 ],
               ),
@@ -85,10 +77,7 @@ class MonthlySummaryCards extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.savings,
-                    color: Colors.blue,
-                  ),
+                  const Icon(Icons.savings, color: Colors.blue),
                   const SizedBox(height: 8),
                   const Text("Savings"),
                   const SizedBox(height: 8),
@@ -101,8 +90,7 @@ class MonthlySummaryCards extends StatelessWidget {
                       ),
                     ),
                     loading: () => const CircularProgressIndicator(),
-                    error: (error, stackTrace) =>
-                        const Text("Error"),
+                    error: (error, stackTrace) => const Text("Error"),
                   ),
                 ],
               ),

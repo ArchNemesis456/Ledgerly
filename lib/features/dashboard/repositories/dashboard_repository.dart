@@ -5,11 +5,10 @@ class DashboardRepository {
   final TransactionDao _transactionDao;
 
   DashboardRepository(AppDatabase database)
-      : _transactionDao = TransactionDao(database);
+    : _transactionDao = TransactionDao(database);
 
   Future<double> getTotalIncome() async {
-    final transactions =
-        await _transactionDao.getAllTransactions();
+    final transactions = await _transactionDao.getAllTransactions();
 
     double total = 0;
 
@@ -23,8 +22,7 @@ class DashboardRepository {
   }
 
   Future<double> getTotalExpense() async {
-    final transactions =
-        await _transactionDao.getAllTransactions();
+    final transactions = await _transactionDao.getAllTransactions();
 
     double total = 0;
 
@@ -45,11 +43,11 @@ class DashboardRepository {
   }
 
   Future<List<Transaction>> getRecentTransactions() async {
-    final transactions =
-        await _transactionDao.getAllTransactions();
+    final transactions = await _transactionDao.getAllTransactions();
 
     return transactions.take(5).toList();
   }
+
   Future<double> getMonthlyIncome() async {
     final transactions = await _transactionDao.getAllTransactions();
 
@@ -58,17 +56,17 @@ class DashboardRepository {
     double total = 0;
 
     for (final transaction in transactions) {
-        if (transaction.isIncome &&
-            transaction.date.month == now.month &&
-            transaction.date.year == now.year) {
+      if (transaction.isIncome &&
+          transaction.date.month == now.month &&
+          transaction.date.year == now.year) {
         total += transaction.amount;
-        }
+      }
     }
 
     return total;
-    }
+  }
 
-    Future<double> getMonthlyExpense() async {
+  Future<double> getMonthlyExpense() async {
     final transactions = await _transactionDao.getAllTransactions();
 
     final now = DateTime.now();
@@ -76,39 +74,37 @@ class DashboardRepository {
     double total = 0;
 
     for (final transaction in transactions) {
-        if (!transaction.isIncome &&
-            transaction.date.month == now.month &&
-            transaction.date.year == now.year) {
+      if (!transaction.isIncome &&
+          transaction.date.month == now.month &&
+          transaction.date.year == now.year) {
         total += transaction.amount;
-        }
+      }
     }
 
     return total;
-    }
+  }
 
-    Future<double> getMonthlySavings() async {
-        final income = await getMonthlyIncome();
-        final expense = await getMonthlyExpense();
+  Future<double> getMonthlySavings() async {
+    final income = await getMonthlyIncome();
+    final expense = await getMonthlyExpense();
 
-        return income - expense;
-        }
+    return income - expense;
+  }
 
-        Future<Map<String, double>> getCategoryExpenses() async {
-    final transactions =
-        await _transactionDao.getAllTransactions();
+  Future<Map<String, double>> getCategoryExpenses() async {
+    final transactions = await _transactionDao.getAllTransactions();
 
     final Map<String, double> categoryTotals = {};
 
     for (final transaction in transactions) {
-        if (transaction.isIncome) continue;
+      if (transaction.isIncome) continue;
 
-        final category = transaction.categoryId.toString();
+      final category = transaction.categoryId.toString();
 
-        categoryTotals[category] =
-            (categoryTotals[category] ?? 0) +
-                transaction.amount;
+      categoryTotals[category] =
+          (categoryTotals[category] ?? 0) + transaction.amount;
     }
 
     return categoryTotals;
-    }
+  }
 }

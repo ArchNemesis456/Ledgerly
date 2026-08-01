@@ -22,33 +22,24 @@ class IncomeExpenseCards extends StatelessWidget {
               padding: const EdgeInsets.all(18),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.arrow_downward,
-                    color: Colors.green,
-                  ),
+                  const Icon(Icons.arrow_downward, color: Colors.green),
                   const SizedBox(height: 10),
                   const Text("Income"),
                   const SizedBox(height: 6),
                   totalIncome.when(
                     data: (income) => Text(
                       "₹${income.toStringAsFixed(2)}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
-                          ),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
                     ),
                     loading: () => const SizedBox(
                       width: 24,
                       height: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
+                      child: CircularProgressIndicator(strokeWidth: 2),
                     ),
-                    error: (error, stackTrace) =>
-                        const Text("Failed to load"),
+                    error: (error, stackTrace) => const Text("Failed to load"),
                   ),
                 ],
               ),
@@ -63,33 +54,24 @@ class IncomeExpenseCards extends StatelessWidget {
               padding: const EdgeInsets.all(18),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.arrow_upward,
-                    color: Colors.red,
-                  ),
+                  const Icon(Icons.arrow_upward, color: Colors.red),
                   const SizedBox(height: 10),
                   const Text("Expense"),
                   const SizedBox(height: 6),
                   totalExpense.when(
                     data: (expense) => Text(
                       "₹${expense.toStringAsFixed(2)}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red,
-                          ),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
                     ),
                     loading: () => const SizedBox(
                       width: 24,
                       height: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
+                      child: CircularProgressIndicator(strokeWidth: 2),
                     ),
-                    error: (error, stackTrace) =>
-                        const Text("Failed to load"),
+                    error: (error, stackTrace) => const Text("Failed to load"),
                   ),
                 ],
               ),
